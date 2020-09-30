@@ -1,0 +1,24 @@
+{%if template contains "index" %}
+    {% include 'banner' %}
+    {%endif%}
+
+{% include 'paintstore.categorieen'%}
+
+{{ content_for_index }}
+
+{{ 'banner5.png' | asset_url | img_tag}}
+{%comment%}
+{{ 'banner6.png' | asset_url | img_tag}}
+{{ 'banner4.png' | asset_url | img_tag}}
+{{ 'banner3.png' | asset_url | img_tag}}
+{{ 'paintstore-banner-korting.png' | asset_url | img_tag}}
+{%endcomment%}
+
+{% include 'paintstore.advies-voor-iedereen'%}
+
+{% include 'paintstore.schilderen_met_paintstore'%}
+
+{% include 'paintstore.kleuren_en_inspiratie'%}
+
+
+

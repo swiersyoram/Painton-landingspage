@@ -1,0 +1,427 @@
+{{ 'color_palate.scss.css' | asset_url | stylesheet_tag }}
+{% if settings.product_page_sidebar == "left_sidebar" or  settings.product_page_sidebar == "right_sidebar" %}
+{% assign mid_width = "grid__item wide--three-quarters post-large--three-quarters large--three-quarters" %}
+{% else %}
+{% assign mid_width = "grid__item" %}
+{% endif %}
+
+{%comment%}
+{% if settings.product_page_sidebar == "left_sidebar" %}
+<div class="grid__item wide--one-quarter post-large--one-quarter large--one-quarter">
+  {% include 'product-sidebar' %}
+</div>
+{% endif %}
+{%endcomment%}
+
+<div class="{{ mid_width }}">
+  <div itemscope itemtype="http://schema.org/Product">
+    <meta itemprop="url" content="{{ shop.url }}{{ product.url }}">
+    <meta itemprop="image" content="{{ product.featured_image.src | img_url: 'grande' }}">
+    <div class="product-single">
+      {% if collection %}
+      <div class="">
+        <a href="{{ collection.url }}" class="">
+          
+          {{ 'products.product.back_to_collection' | t: title: collection.title }}
+        </a>
+      </div>
+
+    {% endif %}
+
+
+
+
+      <div class="product-details-wrapper">
+      <div class="grid__item wide--one-half post-large--one-half large--one-half product-img-box">
+      <h2 itemprop="name" class="product-single__title">{{ product.title }}</h2>
+        {% if product.images.size == 0 %}
+        <div class="product-photo-container">
+          <img src="{{ '' | product_img_url: 'grande' }}" alt="">
+        </div>
+        {% else %}
+        <div class="product-photo-container">
+          {% assign featured_image = product.selected_or_first_available_variant.featured_image | default: product.featured_image %}
+          <a href="{{ featured_image | img_url: 'master' }}" >
+            <img id="product-featured-image" src="{{ featured_image | img_url: 'large' }}" alt="{{ featured_image.alt | escape }}" data-zoom-image="{{ featured_image.src | img_url: 'master' }}"/>
+          </a>
+
+        </div>
+        {% if product.images.size > 0 %}		
+        <div class="more-view-wrapper-owlslider">
+          <ul id="ProductThumbs" class="product-photo-thumbs owl-carousel owl-theme thumbs">
+            {% for image in product.images %}
+            <li>
+              <a href="javascript:void(0)" data-image="{{ image.src | product_img_url: 'large' }}" data-zoom-image="{{ image.src | product_img_url: '1024x1024' }}">
+                <img src="{{ image.src | product_img_url: 'compact' }}" alt="{{ image.alt | escape }}">
+              </a>
+            </li>
+            {% endfor %}
+          </ul>
+          <div class="single-page-owl-carousel"></div>
+        </div>
+        {% endif %}
+        {% endif %}
+      </div>
+
+      <div class=product-details-colum>
+        
+          
+          <div class="product-description rte" itemprop="description">
+          <h3>Omschrijving</h3>
+            {{product.metafields.verf.Beschrijving_kort}}
+          </div>
+
+        
+
+        <div class="kenmerken-wrapper">
+        <h3>Kenmerken</h3>
+        <ul>
+          <li>
+            {% if product.vendor != blank %}
+            <h4>Merk </h4><p>{{product.vendor}}</p>
+            {%endif%}
+          </li>
+          <li>
+            {% if product.metafields.verf.Locatie != blank %}
+            <h4>Locatie </h4><p>{{product.metafields.verf.Locatie}}</p>
+            {%endif%}
+          </li>
+          <li>
+            {% if product.metafields.verf.Afwerking != blank %}
+            <h4>Afwerking </h4><p>{{product.metafields.verf.Afwerking}}</p>
+            {%endif%}
+          </li>
+          <li>
+            {% if product.metafields.verf.Glansgraad != blank %}
+            <h4>Glansgraad </h4><p>{{product.metafields.verf.Glansgraad}}</p>
+            {%endif%}
+          </li>
+          <li>
+            {% if product.metafields.verf.Ondergrond_kort != blank %}
+            <h4>Ondergrond </h4><p>{{product.metafields.verf.Ondergrond_kort}}</p>
+            {%endif%}
+          </li>
+          <li>
+            {% if product.metafields.verf.Basis != blank %}
+            <h4>Basis </h4><p>{{product.metafields.verf.Basis}}</p>
+            {%endif%}
+          </li>
+          <li>
+            {% if product.metafields.verf.Levering != blank %}
+            <h4>Levertijd </h4>{{product.metafields.verf.Levering}}
+            {%endif%}
+          </li>
+         
+          <li>
+            {% if product.metafields.verf.TechnischeFiche != blank %}
+            <h4>Technische Fiche </h4><a href="{{product.metafields.verf.TechnischeFiche}}">{{"pdf.png" | asset_url | img_tag }} technische fiche</a>
+            {%endif%}
+          </li>
+          <li>
+            
+            <h4>Reviews </h4><span class="shopify-product-reviews-badge" data-id="{{ product.id }}"></span>
+            
+          </li>
+        <ul>
+        
+        
+        </div>
+        
+          
+      
+      </div>
+
+      <div class="product_single_detail_section grid__item wide--one-half post-large--one-half large--one-half">
+        {%comment%}
+        <div class="product_single_price">
+
+          <div class="product_price">
+            {% capture price %}{{ product.price | money }}{% endcapture %}
+            <div class="grid-link__org_price" id="ProductPrice">
+              {% if product.price_varies %}{{ price }}{% else %}{{ price }}{% endif %}
+            </div>
+          </div>
+          {% if product.compare_at_price > product.price %}
+          <del class="grid-link__sale_price" id="ComparePrice">{{ product.compare_at_price | money }}</del>
+          {% endif %}
+        </div>
+        {%endcomment%}
+
+        
+        <div itemprop="offers" itemscope itemtype="http://schema.org/Offer">
+          {% assign variant = product.selected_or_first_available_variant %}
+          <meta itemprop="priceCurrency" content="{{ shop.currency }}">
+          <link itemprop="availability" href="http://schema.org/{% if product.available %}InStock{% else %}OutOfStock{% endif %}">
+
+          {% if settings.count_down_enable and settings.count_down_collections %}
+          {% assign dealTime = settings.home_productdeal_time | split: ' ' | join: ' ' | split: ' ' %}
+          {% include 'deal-snippet' %}
+          {% endif %}
+
+
+
+          {% form 'product', product, id: "AddToCartForm", class: "product-form" %}
+          
+          
+          
+          	
+          {% include 'color-qty-selection' %}
+          
+          <div class="product-single__quantity"{% unless settings.product_quantity_enable %} style="display:none !important";{% endunless %}>
+            <div class="quantity-box-section">
+              <label>{{ 'products.product.quantity' | t }}</label>
+              {% include 'qty' %}
+            </div>
+          </div>
+          {%comment%}
+          <div class="product-infor">
+            {% if settings.display_availability or settings.display_product_type or settings.display_vendor %}
+
+            {% if settings.display_vendor %}
+            <p class="product-vendor">
+              <label>{{ 'products.product.product_vendor' | t }}</label>
+              <span>{{ product.vendor }}</span>
+            </p>
+            {% endif %}
+            {% if settings.display_product_type %}
+            <p class="product-type">
+              <label>{{ 'products.product.product_type' | t }} </label>  
+              <span>{{ product.type }}</span>
+            </p>
+            {% endif %}
+            {% if settings.display_availability %}
+            <p class="product-inventory">
+              <label>{{ 'products.product.availability' | t  }}  </label>              
+              <span>
+                {% if product.selected_or_first_available_variant.inventory_management %}
+                {% assign first_inventory = product.selected_or_first_available_variant.inventory_quantity %}
+                {% if first_inventory > 0 %}
+                {{first_inventory}} {{ 'products.product.in_stock' | t }}
+                {% else %}
+                {{ 'products.product.out_of_stock' | t }}
+                {% endif %}
+                {% else %}
+                {{ 'products.product.many_in_stock' | t }}
+                {% endif %}
+              </span>
+            </p>
+            {% endif %}        
+            {% endif %}
+          </div>
+          {%endcomment%}
+
+          {% if settings.enable_add_cart %}
+          <button type="submit" name="add" id="AddToCart" class="btn">
+            <span id="AddToCartText">{{ 'products.product.add_to_cart' | t }}</span>
+          </button>
+          {% endif %}  
+
+          {%comment%}
+          {% if settings.payment_button %}
+          {{ form | payment_button }}
+          {% endif %}
+          {%endcomment%}
+
+          
+
+          {% endform %}
+        </div>
+
+
+
+
+
+        
+        </div>
+      </div>
+    </div>
+  </div>
+
+    <div class="bijhorend-materiaal">
+    <h3>Bijhorende producten en materialen</h3>
+    {% include 'bijhorend-materiaal' %}
+    </div>
+
+
+    <div class="dt-sc-hr-invisible-large"></div>
+    <div class="dt-sc-tabs-container">
+   
+      <ul id="links-omschrijving" class="omschrijving-links">
+        <li><input id="eerste-link" type="button" value="omschrijving en kenmerken"onclick="omschrijving()"></li>
+        <li><input type="button" value="Hoe te gebruiken"onclick="hoe_te_gebruiken()"></li> 
+        <li><input type="button" value="Ook handig"onclick="ookhandig()"></li> 
+        <li><input type="button" value="Beoordelingen"onclick="review()"></li>  
+        
+      </ul>
+      <hr id="divider-links">
+      
+      
+      <div class="product-details-content">
+        <div id="omschrijving-js">
+        {{ product.description }}
+        </div>
+        <div id="hoe-te-gebruiken">
+
+        {% if product.metafields.verf.Ondergrond != blank %}
+        <strong>Ondergrond</strong>
+        {{ product.metafields.verf.Ondergrond }}
+        {%endif%}
+
+        {% if product.metafields.verf.Droogtijd != blank %}
+        <strong>Droogtijd</strong>
+        {{ product.metafields.verf.Droogtijd }}
+        {%endif%}
+
+        {% if product.metafields.verf.Reinigen != blank %}
+        <strong>Reiniging</strong>
+        {{ product.metafields.verf.Reinigen}}
+        {%endif%}
+        
+        {% if product.metafields.verf.Verbruik_tekst != blank %}
+        <strong>Verbruik</strong>
+        {{ product.metafields.verf.Verbruik_tekst }}
+        {%endif%}
+
+        {% if product.metafields.verf.Verwerking != blank %}
+        <strong>Verwerking</strong>
+        {{ product.metafields.verf.Verwerking }}
+        {%endif%}
+
+        </div>
+
+
+         <div id="ook-handig" class="product-details-content">
+         <h3>Ook handig</h3>
+         {% include 'related-products' %}
+         </div>
+
+          <div id="review-wrapper">
+          <a id="review"></a>
+          <div id="shopify-product-reviews" data-id="{{product.id}}">{{ product.metafields.spr.reviews }}</div></div>
+      </div>
+      
+      {%comment%}
+      {% if settings.product_tab2 %}
+      <div class="dt-sc-tabs-content">
+        <div class="commentlist">
+          <div class="comment-text">
+            <div class="rating-review">
+              <div id="shopify-product-reviews" data-id="{{product.id}}">{{ product.metafields.spr.reviews }}</div>
+            </div>
+          </div>
+        </div>
+      </div>
+      {% endif %}
+      {% if settings.product_tab3 %}
+      <div class="dt-sc-tabs-content">
+        <p>{{ pages[settings.product_tab3_page].content }}</p>
+      </div>
+      {% endif %}               
+    </div>
+    
+    {% if settings.product_related_enable %}
+
+    {% include 'related-products' %}
+    {% endif %}
+    {%endcomment%}
+  </div>
+</div>
+
+{%comment%}
+{% if settings.product_page_sidebar == "right_sidebar" %}
+<div class="grid__item wide--one-quarter post-large--one-quarter large--one-quarter">
+  {% include 'product-sidebar' %}
+</div>
+{% endif %}
+{%endcomment%}
+<script>
+  
+    
+$.ajax({
+    url:'/apps/paint/',
+    type:'GET',
+    dataType:'HTML',
+    success:function(res){
+      $(".grop-color-container .title").html("<input type='text' name='search_color' class='search_color' />");
+    		$(".color-container").append(res);
+    }
+  });
+  
+  
+  $(document).on("keyup",".search_color",function(){
+var value = $(this).val();
+$(".color_paint").hide();
+$(".color_paint").each(function(){
+
+var color_name = $(this).find(".color_name").html();
+var color_code = $(this).find(".color_code").html();
+
+
+
+if(color_name.indexOf(value) != -1 || color_code.indexOf(value) != -1){
+$(this).show();
+}
+
+
+});
+
+
+});
+  
+  $(document).on("click",".color_paint",function(){
+  var background = $(this).css("background-color");
+    var color_name = $(this).find('.color_name').html();
+    var color_code = $(this).find('.color_code').html();
+    $(".palate-close").click();
+$(".select-color .color-sub-block").css("background-color",background);
+
+    $(".select-color .color-sub-block .sub-color-title").html(color_name);
+    
+    $(".select-color .color-sub-block .sub-color-code").html(color_code);
+    
+    
+  });
+  
+  
+  
+  
+  
+  var selectCallback = function(variant, selector) {
+    timber.productPage({
+      money_format: "{{ shop.money_format }}",
+      variant: variant,
+      selector: selector,
+      translations: {
+      add_to_cart : "{{ 'products.product.add_to_cart' | t }}",
+      sold_out : "{{ 'products.product.sold_out' | t }}",
+      unavailable : "{{ 'products.product.unavailable' | t }}"
+    }
+                       });
+  };
+
+  jQuery(function($) {
+    new Shopify.OptionSelectors('productSelect', {
+      product: {{ product | json }},
+      onVariantSelected: selectCallback,
+      enableHistoryState: true
+    });
+
+
+    {% if settings.enable_linked_option %}
+    {% if product.available and product.options.size > 1 %}
+    Shopify.linkOptionSelectors({{ product | json }});
+    {% endif %}
+    {% endif %}
+
+    // Add label if only one product option and it isn't 'Title'. Could be 'Size'.
+    {% if product.options.size == 1 and product.options.first != 'Title' %}
+    $('.selector-wrapper:eq(0)').prepend('<label for="productSelect-option-0">{{ product.options.first | escape }}</label>');
+                                         {% endif %}
+                                         // Hide selectors if we only have 1 variant and its title contains 'Default'.
+                                         {% if product.variants.size == 1 and product.variants.first.title contains 'Default' %}
+                                         $('.selector-wrapper').hide();
+    {% endif %}
+    $('.product-single .single-option-selector').wrap('<div class="selector-arrow">');
+  });   
+
+</script>
