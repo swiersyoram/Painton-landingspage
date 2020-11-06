@@ -1,14 +1,148 @@
 body{
     margin: 0;
     padding: 0;
-
-}
-.video_wrapper{
-    width: 100vw;
-    height: 100vh;
     overflow: hidden;
+    font-family: 'Montserrat', sans-serif;
+    position: relative;
+    
+}
+
+#maar_wat_dan_wel{
+    position: absolute;
+    top: 50%;
+    left: 50%;
+    width: 500px;
+    height: 200px;
+    z-index: 1;
 }
 #video_painton{
     width: 100%;
     
+}
+.main_content{
+    width: 100vw;
+    height: 100vh;
+    background: rgb(179,235,241);
+    background: radial-gradient(circle, rgba(179,235,241,1) 0%, rgba(130,186,192,1) 100%);
+    
+    position: relative;
+}
+.main_content_wrapper{
+    
+    justify-content: space-between;
+    width: fit-content;
+    margin: auto ;
+    padding-top: 150px;
+    width: 1400px;
+    display: flex;
+}
+header img{
+    width: 200px;
+    margin: 10px 50px;
+    transition: 0.5s;
+}
+header img:hover{
+    transform: scale(1.05);
+}
+.oplossing{
+    text-align: center;
+    width: 610px;
+    color: white;
+}
+iframe{
+    width: 560px;
+    border: none;
+    z-index: 1;
+    position: relative;
+}
+.oplossing h1{
+    font-size: 4em;
+    margin-top: 0;
+    text-transform: uppercase;
+}
+.oplossing p{
+    margin-bottom: 50px;
+    font-weight: 500;
+   
+}
+.video_wrapper{
+    position: relative;
+}
+.video_wrapper img{
+    width: 600px;
+}
+.video_wrapper iframe{
+    position: absolute;
+    top: 20px;
+    left: 20px;
+    width: 560px;
+    z-index: 0;
+}
+.main_content svg{
+        position: absolute;
+    top: 0;
+    right: 0;
+    /* width: 100%; */
+    height: 100%;
+    z-index: 0;
+}
+.hbspt-form{
+    width: 300px;
+   
+}
+.merken{
+    position: relative;
+    display: flex;
+    justify-content: space-between;
+    width: 1400px;
+    margin: 0 auto;
+    z-index: 1;
+    margin-top: 100px;
+    
+}
+.merken img{
+    margin: auto 0;
+    transition: 1s;
+    
+}
+.merken img:nth-child(1){
+    height: 50px;
+}
+.merken img:nth-child(2){
+    height: 35px;
+}
+.merken img:nth-child(3){
+    height: 90px;
+}
+.merken img:nth-child(4){
+    height: 70px;
+}
+.merken img:nth-child(5){
+    height: 110px;
+}
+.merken img:hover{
+    
+    transform: scale(1.1);
+}
+.video_popup{
+    position: absolute;
+    top: 30vh;
+    left: calc(50vw - 400px);
+    width: 800px;
+    z-index: 3;
+    transform-origin: center;
+    
+}
+.video_popup video{
+    border-radius: 10px;
+}
+#dark_background{
+    position: absolute;
+    background-color: rgba(0, 0, 0, 0.315);
+    display: none;
+    top: 0;
+    left: 0;
+    width: 100vw;
+    height: 100vh;
+    z-index: 2;
 }
