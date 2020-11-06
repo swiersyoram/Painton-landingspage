@@ -3,9 +3,105 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Document</title>
+    <link rel="stylesheet" href="../styles/styles.css">
+    <link rel="icon" href="../assets/favicon.png" type="image/gif" sizes="16x16">
+    <title>Welkom bij Painton</title>
+    <link href="https://fonts.googleapis.com/css2?family=Montserrat:wght@400;500;600;700;800;900&display=swap" rel="stylesheet">
+
+    <!-- Metatags -->
+    <meta property="og:image" content="/assets/logo_facebook.jpg">
+    <meta property="og:image:type" content="image/jpg">
+    <meta property="og:image:width" content="1200">
+    <meta property="og:image:height" content="630">
+
+    <!-- Global site tag (gtag.js) - Google Analytics -->
+        <script async src="https://www.googletagmanager.com/gtag/js?id=UA-155132399-2"></script>
+        <script>
+        window.dataLayer = window.dataLayer || [];
+        function gtag(){dataLayer.push(arguments);}
+        gtag('js', new Date());
+
+        gtag('config', 'UA-155132399-2');
+        </script>
+
+        <!-- Start of HubSpot Embed Code -->
+    <script type="text/javascript" id="hs-script-loader" async defer src="https://js.hs-scripts.com/8626743.js"></script>
+    <!-- End of HubSpot Embed Code -->
+
+    <script src="https://code.jquery.com/jquery-3.5.1.js" integrity="sha256-QWo7LDvxbWT2tbbQ97B53yJnYU3WhH/C8ycbRAkjPDc=" crossorigin="anonymous"></script>
+
 </head>
 <body>
-    
+    <div id="dark_background"></div>
+    <div class="video_popup" id="video_popup_id" style="display: none;">
+        <video  muted  id="video_painton" >
+            <source src="../assets/Painton_Intro_1080p.mp4" type="video/mp4">
+            Your browser does not support HTML5 video.
+        </video>
+    </div>
+    <header>
+        <a href="#">
+            <img src="../assets/logo.png" id="logo"alt="">
+        </a>
+    </header>
+    <div class="main_content">
+        <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 689.5 1080.96"><defs><style>.cls-1{fill:#fff;opacity:0.17;}</style></defs><g id="Layer_2" data-name="Layer 2"><g id="Layer_2-2" data-name="Layer 2"><path class="cls-1" d="M393,.46c-44.55,43.29-111.15,119.17-149,229-79.45,230.57,44.74,387.63-34,598-24.39,65.18-77.38,159.83-210,252q172.38.38,344.75.75c106.08.25,212.17.5,344.75.75V0Z"/></g></g></svg>
+        <div class="main_content_wrapper">
+            <div class="oplossing">
+               <h1>Een oplossing!</h1>
+               <p>Wil je graag op de hoogte blijven van al het nieuws omtrent de opening van de Painton webwinkel? Laat dan hier je e-mailadres achter en krijg jouw persoonlijke kortings code per mail in je inbox!</p>
+               <script charset="utf-8" type="text/javascript" src="https://js.hsforms.net/forms/shell.js"></script>
+                <script>
+                hbspt.forms.create({
+                    portalId: "8626743",
+                    formId: "0a3f1895-81d0-4e98-ad05-c36f39bf3a54"
+                });
+                </script>
+            </div>
+            <div>
+                <div class="video_wrapper">
+                    <img src="../assets/mac.png" alt="">
+                    <iframe width="420" height="315"
+                    src="https://www.youtube.com/embed/4i3kW3mNUX4">
+                    </iframe>
+                </div>
+            </div>
+            
+        </div>
+        <div class="merken">
+                <img src="../assets/peintagone_logo.png" alt="">
+                <img src="../assets/anza_logo.png" alt="">
+                <img src="../assets/vistapaint_logo.png" alt="">
+                <img src="../assets/hpx_logo.png" alt="">
+                <img src="../assets/duthoo.png" alt="">
+        </div>
+        
+    </div>
 </body>
+
+<script>
+    $(document).ready(function(){
+        $("#logo").click(function(){
+            openvideo();
+            setTimeout(closevideo,7000);
+            
+        })
+
+    function openvideo(){
+        
+        $('#dark_background').fadeIn(500,function(){
+            $('#video_popup_id').show({effect:"scale"});
+            $('#video_painton').get(0).play();
+        });
+
+    }
+    function closevideo(){
+        $('#video_popup_id').hide("scale",function(){
+            $('#dark_background').fadeOut(500);
+        });   
+    }
+
+    });
+   
+</script>
 </html>
