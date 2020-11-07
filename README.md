@@ -3,6 +3,8 @@
 ## result 
 check out the result on:
 https://welkom.painton.be/
+or
+https://swiersyoram.github.io/Painton-landingspage/
 
 ## About 
 This is a page I build for a project I was working on. This should have been fun 
